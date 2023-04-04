@@ -1,0 +1,68 @@
+class Queue_Node
+{
+int order=0;
+Queue_Node next;
+}
+public class Order_Queue 
+ {
+   
+            Queue_Node head,tail;
+            int size;
+            public void Enqueue(int value)
+            {
+                Queue_Node node = new Queue_Node();
+                node.order=value;
+                node.next=null;
+                if (head==null)
+                {
+                    head=tail=node;
+                }
+                else
+                {
+                    tail.next=node;
+                    tail=node;
+                }
+                size++;
+            }
+            public void Dequeue()
+            {
+                Queue_Node n = head;
+                if (n==null)
+                {
+                    System.out.println("*******************************************************************************************");
+                    System.out.println("NO ORDER PLACED YET" );
+                    System.out.println("*******************************************************************************************");
+                }
+                else {
+                    int x = head.order;
+                    head = head.next;
+                    n.next = null;
+                    n.order = 0;
+                    size--;
+                    System.out.println("*******************************************************************************************");
+                    System.out.println(" \t ORDER NO :" + x + " IS READY PLEASE PICK UP FROM COUNTER " );
+                    System.out.println("*******************************************************************************************");
+                }
+            }
+
+            public void show()
+            {
+                Queue_Node n = head;
+                if (n == null) 
+                {
+                    System.out.println("\tNO ORDER PLACED YET     \n" );
+                } else 
+                {
+                    while (n.next != null) 
+                    {
+	                    System.out.println("*******************************************************************************************");
+                        System.out.println("\tORDER NO: " + n.order);
+	                    System.out.println("*******************************************************************************************");
+                        n = n.next;
+                    }
+                    System.out.println("*******************************************************************************************");
+                    System.out.println( "\tORDER NO: " + n.order );
+                }
+            }
+
+        }

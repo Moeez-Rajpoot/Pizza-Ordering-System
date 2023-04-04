@@ -1,0 +1,297 @@
+import java.util.Scanner;
+
+public class CustomList {
+
+	Scanner ab=new Scanner (System.in);
+	Order_Queue Queue = new Order_Queue();
+	 Custom head;
+	 int size=1;
+	 int total_deals=0;
+	    int Earned=0;
+	 int ordernum=2000;
+	 
+	 public void insert3(String name, String s,int sp, String name1, String s1,int sp1,String name2,int sp2,int z)
+	 {
+		
+		 Custom item=new Custom();
+		 item.n1=name;
+		 item.Size1=s;
+		 item.quantity1=sp;
+		 item.n2=name1;
+		 item.Size2=s1;
+		 item.quantity2=sp1;
+		 item.n3=name2;
+		 item.quantity3=sp2;
+		 item.price=z;
+		 item.number=size++;
+		 
+		 if(head==null)
+		 {
+			 head=item;
+			 total_deals++;;
+		 }
+		 else    
+		 {
+			 Custom temp=head;
+			 while(temp.next!=null)
+			 {
+				 temp=temp.next;
+			 }
+			 temp.next=item;
+			total_deals++;;
+
+		 }
+	 }
+	 public void show1()
+	 {
+		 int x=	total_deals/2;
+		Custom item=head;
+		if (item==null)
+		{
+			System.out.println("There is No Deal");
+		}
+		else
+		{
+			
+		    for (int i=0;i<x;i++)
+		    {
+		            System.out.println("\t\t\t\tDEAL NO : "+item.number+ "                             **             "+"DEAL NO : "+item.next.number);
+					System.out.println("**************************************************************************************************************************");
+		            System.out.println("\t\t\t* NAME           * QUANTITY *   SIZE           **              *  NAME           * QUANTITY   * SIZE");
+		            System.out.println("\t\t\t* "+item.n1 +"  *    "+item.quantity1+"\t    *  "+item.Size1+"           **              * "+item.next.n1 +" *     "+item.next.quantity1+"      * "+item.next.Size1);
+		            System.out.println("\t\t\t* "+item.n2 +" *    "+item.quantity2+"\t    *  "+item.Size2+"           **              * "+item.next.n2 +" *     "+item.next.quantity2+"      * "+item.next.Size2);
+		            System.out.println("\t\t\t* "+item.n3 +"           *    "+item.quantity3+"                        **\t       * "+item.n3 +"            *     "+item.quantity3);
+					System.out.println("----------------------------------------------------------------------------------------------------------------------\n");
+		            System.out.println("\t\t\t"+"PRICE : "+item.price+"                                   \t\t       "+"PRICE : "+item.next.price);
+		            System.out.println("----------------------------------------------------------------------------------------------------------------------");
+		            item = item.next;
+		            if (item.next!=null) 
+		            {
+		            	item = item.next;
+		            }else 
+		            {
+		            	item=null;
+		            }
+		    }
+		    if(item!=null)
+		    {
+		        System.out.println("\t\t\t\t\t\t\t\t\t"+"DEAL NO : " + item.number);
+		        System.out.println("\t\t\t\t\t\t\t\t\tNAME    QUANTITY   SIZE");
+		        System.out.println("\t\t\t\t\t\t\t\t   "+item.n1 + " " + item.quantity1 + " " + item.Size1);
+		        System.out.println("\t\t\t\t\t\t\t\t   "+item.n2 + " " + item.quantity2 + " " + item.Size2);
+		        System.out.println("\t\t\t\t\t\t\t\t   "+item.n3 + " " + item.quantity3 + " " );
+		        System.out.println("\t\t\t\t\t\t\t\t   "+" PRICE : " + item.price);
+		        System.out.println("");
+		    }
+		    else
+		    {
+		    	
+		    }
+		}
+	 }
+	 public void update(int i, int qs) //adding new stock
+	 {
+		 Custom temp=head;
+		 while(temp!=null)
+		 {
+			 if(temp.number==i) 
+			 	{
+				 
+				 {
+					 temp.quantity1=temp.quantity1+qs;
+					 temp.quantity2=temp.quantity2+qs;
+					 temp.quantity3=temp.quantity3+qs;
+				 }
+				 break;
+			 	}
+			 temp=temp.next;
+		 } 
+	 }
+	 public void ArrangeOrder()
+	    {
+	        int i=1;
+	        Custom n=head;
+	        if (n.next==null)
+	        {
+	            n.number=i;
+	        }
+	        else 
+	        {
+	            while (n.next != null) 
+			{
+	            n.number = i++;
+	            n = n.next;
+	         }
+	           n.number = i++;
+	        }
+	    }
+
+	 public void update1(int i1)	//deleting the stock after order has been placed
+	 {
+		 Custom temp=head;
+		 while(temp!=null)
+		 {
+			 if(temp.number==i1) 
+			 	{
+				 
+				 {
+					 temp.quantity1=temp.quantity1-2;
+					 temp.quantity2=temp.quantity2-2;
+					 temp.quantity3=temp.quantity3-1;
+				 }
+				 break;
+			 	}
+			 temp=temp.next;
+		 } 
+	 }
+	 Custom price_ret(int no)
+	    {
+		 Custom n=head;
+	        for (int i=0;i<total_deals;i++)
+	        {
+	            if(n.number==no)
+	            {
+	                return n;
+	            }
+	            n=n.next;
+	        }
+	        return null;
+	    }
+	 public void Delete(int index) 
+	 {
+		 Custom temp=head;
+		 Custom n1=null;	
+		 if (temp.number==index)
+		 {
+			head=head.next;
+			n1=null;
+		 }
+		else
+		{
+			while (temp.next.number != index)
+			{
+                temp = temp.next;
+            }
+            n1 = temp.next;
+            temp.next = n1.next;
+            ArrangeOrder();
+		}
+		 ArrangeOrder();
+		 total_deals--;
+	 }
+	 public int orderret()
+	    {
+	        return  ordernum-1;
+	    }
+	 public int ret()
+	    {
+	        return Earned;
+	    }
+	 public void Deal_Order() 
+	 {
+
+		    int paychoice;
+		    char ch;
+		    int total_price = 0;
+		    int array[] = new int[5];
+		    int No_of_items = 0;                   //ka kitna order ya items li hai
+		    if (head== null) {
+		        System.out.println("NO DEALS RECORD FOUND!!!");
+		    } 
+		    else
+		    {
+		        do {
+		            System.out.println("ENTER Deal No:");
+		            int C = ab.nextInt();
+		            update1(C);
+		            array[No_of_items] = C;
+		            No_of_items++;
+		            
+		            System.out.println("WANT TO ORDER MORE Deals Y or N ");
+		            ch = ab.next().charAt(0);
+		        }
+		        while (ch != 'n' && ch != 'N');
+
+		        for (int i = 0; i < No_of_items; i++)
+		        {      //calculating total price
+					 Custom n=head;
+		            while(n.next!=null) 
+		            {
+		                if (array[i] == n.number)
+		                {
+		                    total_price = total_price + n.price;          //total bill price
+		                }
+		                n=n.next;
+		            }
+		            if (array[i] == n.number)
+		            {
+		                total_price = total_price + n.price;          //total bill price
+		            }
+		        }
+                System.out.println("**********************************************************************************************************");
+		        System.out.println(" ORDER NO IS : " +ordernum);
+		        for (int i = 0; i < No_of_items; i++) {
+		            Custom n=head;
+		            while(n.next!=null) {
+		                if (array[i] == n.number) {
+		                	System.out.println("*****************************************************************************");
+		                    System.out.println(" DEAL NO : "+n.number);
+		                    System.out.println("ITEM NAME       QUANTITY        SIZE");
+		                    System.out.println(n.n1 +"     2"+"     \tSmall");
+		                    System.out.println(n.n2 +"    2"+"     \tLarge");
+		                    System.out.println(n.n3 +"              1"+"\t\t1.5 Litre");
+		                    System.out.println("\nPRICE :  "+n.price);
+		                    System.out.println("*****************************************************************************");
+		                    System.out.println("*****************************************************************************");
+		                }
+		                n=n.next;
+		            }
+		            if (array[i] == n.number) {
+		            	System.out.println("*****************************************************************************");
+	                    System.out.println(" DEAL NO : "+n.number);
+	                    System.out.println("ITEM NAME       QUANTITY        SIZE");
+	                    System.out.println(n.n1 +"     2"+"     \tSmall");
+	                    System.out.println(n.n2 +"    2"+"     \tLarge");
+	                    System.out.println(n.n3 +"                1"+"\t\t1.5 Litre");
+	                    System.out.println("\nPRICE :  "+n.price);
+	                    System.out.println("*****************************************************************************");
+	                }
+		        }
+                System.out.println("**********************************************************************************************************");
+		        System.out.println("\t\tBILL IS " + total_price);
+                System.out.println("**********************************************************************************************************");
+                System.out.println("1: Pay BY Card \t 2: Cash");
+		        int ab1=ab.nextInt();
+		        if (ab1==1)
+		        {
+	                System.out.println("**********************************************************************************************************");
+			        System.out.print("Enter Pin Code ");
+			        int ab2=ab.nextInt();
+			        if(ab2==4321)
+			        {
+		                System.out.println("**********************************************************************************************************");
+			        	System.out.println("\nCard Is Verified. Bill is Paid...............");
+			        }
+
+		        }
+		        else 
+		        {
+	                System.out.println("**********************************************************************************************************");
+		        	System.out.println("Enter The Amount : ");
+		               int payamount = ab.nextInt();
+		               int returnbalance = payamount - total_price;
+		                System.out.println("**********************************************************************************************************");
+	                    System.out.println("RETURNED AMOUNT :" + returnbalance);
+		        }
+		                    
+		                    ordernum++;
+		                   Earned=Earned+total_price;
+		                    Queue.Enqueue(ordernum);
+		                    System.out.println("*******************************************************************************************************************");
+		                    System.out.println("YOUR ORDER HAS BEEN SUCCESSFULLY PLACED . PLEASE WAIT 5 MINS TO PICK YOUR ORDER..");
+		                    System.out.println("\t\t\t    THANKS FOR ORDERING  \n");
+		                    System.out.println("\t\t\t  Will Be Happy to Serve You Again ");
+		                    System.out.println("*******************************************************************************************************************");
+		        }
+		    }
+		    }

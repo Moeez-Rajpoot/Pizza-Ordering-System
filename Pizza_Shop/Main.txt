@@ -1,0 +1,46 @@
+import java.util.Scanner;
+public class Main 
+{
+	public static void main(String[] args) 
+	{
+		int a3=0;
+		User a = new User();
+		UserMenu y= new UserMenu();
+		boolean again=true;
+		do
+		{
+			Scanner z=new Scanner(System.in);
+			y.first();
+			System.out.println("************************************************************************************************************");
+			System.out.println("\t\t Press 1: Manager Menu");
+			System.out.println("\t\t Press 2: Order Menu");
+			System.out.print("\t\t Press : ");
+			int b=z.nextInt();
+			System.out.println("************************************************************************************************************");
+			switch(b) 
+			{
+			case 1:
+					if(a3==0)
+					{
+						boolean c=a.login();
+						if(c==true)
+						y.display1(1);
+						++a3;
+					}
+					else
+					{
+						y.display1(1);
+					}
+					
+					break;
+			case 2:
+						y.display1(2);
+				break;
+			case 3:
+				again= false;
+				break;
+			}
+		}while(again);
+	}
+}
+

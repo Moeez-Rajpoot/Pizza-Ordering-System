@@ -1,0 +1,441 @@
+import java.util.Scanner;
+
+public class availablestock {
+	 Items head;
+	 int size=1;
+	 int insert=0;
+     int NUMM=1;
+     int total_items=0;
+     int orderno=1000;
+     int earn=0;
+	 Scanner sc= new Scanner(System.in);
+	 public void insert(String name, int s,int sp, int m,int mp, int l,int lp)
+	 {
+		 insert=insert+1;
+		 Items item=new Items();
+		 item.number=size++;
+		 item.name=name;
+		 item.small=s;
+		 item.sprice=sp;
+		 item.medium=m;
+		 item.mprice=mp;
+		 item.large=l;
+		 item.lprice=lp;
+		 item.next=null;
+		 if(head==null)
+		 {
+			 head=item;
+		}
+		 else    
+		 {
+			 Items temp=head;
+			 while(temp.next!=null)
+			 {
+				 temp=temp.next;
+			 }
+			 temp.next=item;
+			 
+		 }
+		 total_items++;
+	 }
+	 public void insert2(String name, int s,int sp) // insert for colddrinks
+	 {
+		insert=insert+1;
+		 Items item=new Items();
+		 item.number=size++;
+		 item.name=name;
+		 item.small=s;
+		 item.sprice=sp;
+		 item.next=null;
+		 if(head==null)
+		 {
+			 head=item;
+		 }
+		 else    
+		 {
+			 Items temp=head;
+			 while(temp.next!=null)
+			 {
+				 temp=temp.next;
+			 }
+			 temp.next=item;
+		 }
+		 total_items++;
+	 }
+	 public void show() // items display with pricing for buyer
+	 {
+		Items item=head;
+		if (item==null)
+		{
+			System.out.println("\t\t    Stock is Zero... ");
+		}
+		{
+			while(item.next!=null)
+			{
+				System.out.println("Item No: "+ item.number + "\tItem Name : " + item.name + "\t Small : " + item.sprice + "\tMedium : " + item.mprice + "\t Large : " +item.lprice );
+				item=item.next;
+			}
+				System.out.println("Item No: "+ item.number + "\tItem Name : " + item.name + "\t Small : " + item.sprice + "\tMedium : " + item.mprice + "\t Large : " +item.lprice );
+				System.out.println("*********************************************************************************************************************************************");	
+		}
+		
+	 }
+	 public void show1() // items display with quantity for Manager
+	 {
+		Items item=head;
+		if (item==null)
+		{
+			System.out.println("\t\t    Stock is Zero... ");
+		}
+		{
+		while(item.next!=null)
+		{
+			System.out.println("Item No: "+ item.number + "\tItem Name : " + item.name + "\t Small : " + item.small + "\tMedium : " + item.medium + "\t Large : " +item.large );
+			item=item.next;
+		}
+			System.out.println("Item No: "+ item.number + "\tItem Name : " + item.name + "\t Small : " + item.small + "\tMedium : " + item.medium + "\t Large : " +item.large );
+			System.out.println("******************************************************************");
+	 }
+	 }
+     public void ArrangeOrder()
+     {
+         int i=1;
+         Items n=head;
+         if (n.next==null)
+         {
+             n.number=1;
+         }
+         else {
+             while (n.next != null) {
+                 n.number = i++;
+                 n = n.next;
+             }
+             n.number = i++;
+         }
+     }
+	 public void update(int i, int qs, int qm, int ql) //other items
+	 {
+		 Items temp=head;
+		 while(temp!=null)
+		 {
+			 if(temp.number==i) 
+			 	{
+				 
+				 {
+					 temp.small=temp.small+qs;
+					 temp.medium=temp.medium+qm;
+					 temp.large=temp.large+ql;
+				 }
+				 break;
+			 	}
+		 } 
+	 }
+	 public void update2(int i, int qs) //colddrinks
+	 {
+		 Items temp=head;
+		 while(temp!=null)
+		 {
+			 if(temp.number==i) 
+			 	{
+				 
+				 {
+					 temp.small=temp.small+qs;
+				 }
+				 break;
+			 	}
+			 temp=temp.next;
+		 } 
+	 }
+
+	 public void Delete(int index) 
+	 {
+		 Items n = head;                                  //creating a node n and pointing it on head node
+         Items temp;                                    //creating a temp node
+         if (n.number == index) 
+         {
+             head=n.next;
+             n = null;
+             System.out.println("\t\t     ITEM SUCCESSFULLY DELETED... ");
+         } else 
+         {
+             while (n.next.number != index)                  //loop will run until index -1
+             {
+                 n = n.next;                               //jumping form node to next node
+             }
+             temp = n.next;                                //assigning address of n next node to temp node
+             n.next = temp.next;                            //assigning temp next pointer address to n next pointer
+             System.out.println("\t\t     ITEM SUCCESSFULLY DELETED... ");
+             
+         }
+         ArrangeOrder();
+         total_items--;
+         }
+  //       size--;
+	 
+         public int ret()
+	        {
+	            return earn;
+	        }
+	        
+	         public int orderret()
+	        {
+	            return  orderno-1;
+	        }
+
+	        Items price_ret(int no)
+	        {
+	            Items n=head;
+	            for (int i=0;i<total_items;i++)
+	            {
+
+	                if(n.number==no)
+	                {
+	                    return n;
+	                }
+	                n=n.next;
+	            }
+	            return null;
+	        }
+	        public void CS_Order() {
+	            char paychoice;
+	            char ch;
+	            int total_price = 0;
+	            int array[] = new int[5];
+	            int array1[] = new int[5];
+	            show();
+	            int No_of_items = 0;   //ka kitna order ya items li hai
+	            int No_of_items2=0; // size of items for calculating price and bill
+	            if (head== null)
+	            {
+	                System.out.println("NO RECORD FOUND!!!");
+	            } 
+	            else {
+	            	
+	                do {
+	                    System.out.println("ENTER ITEM No:");
+	                    int C = sc.nextInt();
+	                    if(C==1 ||C==2||C==3||C==4)
+	                    {
+	                    	System.out.println("\nPress :1 For Small");
+	                    	System.out.println("Press :2 For Medium");
+	                    	System.out.println("Press :3 For Large");
+	                    	int az= sc.nextInt();
+	                    	array1[No_of_items2]=az;
+	                    	No_of_items2++;	                    }                    
+	                    array[No_of_items] = C;                    
+	                    No_of_items++;                   
+	                    System.out.println("WANT TO ORDER MORE Y or N ");
+	                    
+	                    ch = sc.next().charAt(0);
+	                }	while (ch != 'n' && ch != 'N');
+	        //        System.out.println("Error is here ");
+	                System.out.println(No_of_items);
+
+	                for (int i = 0; i < No_of_items; i++) 
+	                {      //calculating total price
+	                    Items n=head;
+	                    while(n.next!=null)
+	                    {
+	                    	
+	                        if (array[i] == n.number) 
+	                        {
+	                        		if(array1[i]==1)
+	                        	{
+	                        			n.small=n.small-1;
+	               					 
+	               					 
+	                        			total_price = total_price + n.sprice;          //total bill price
+	                        	}
+	                        		else if(array1[i]==2)
+	                        	{
+	                        			n.medium=n.medium-1;
+	                        		total_price = total_price + n.mprice;          //total bill price
+	                        	}
+	                        		else if(array1[i]==3)
+	                        	{
+	                        			n.large=n.large-1;
+	                        		total_price = total_price + n.lprice;          //total bill price
+	                        	}
+	                        		else
+	                        		{
+	                        			n.small=n.small-1;
+	                        			total_price = total_price +100;          //total bill price
+	                        		}
+	                        
+	                                           
+	                    }
+	                        n=n.next; 
+	                      
+	                } 
+	                    //System.out.println("below while 1 ending ");
+	                        if (array[i] == n.number) 
+	                        {
+	                        	
+	                        		if(array1[i]==1)
+	                        	{
+	                        			n.small=n.small-1;
+	                        			//System.out.println("coming in out of while 1 ");
+	                        			total_price = total_price + n.sprice;          //total bill price
+	                        			
+	                        	}
+	                        		else if(array1[i]==2)
+	                        	{
+	                        			n.medium=n.medium-1;
+	                        		total_price = total_price + n.mprice;          //total bill price
+	                        	}
+	                        		else if(array1[i]==3)	
+	                        	{
+	                        			n.large=n.large-1;
+	                        		total_price = total_price + n.lprice;          //total bill price
+	                        	}
+	                        		else
+	                        		{
+	                        			n.small-=1;
+	                        			total_price = total_price +100;          //total bill price
+	                        		}
+	                        			
+	                        
+	                        n=n.next;
+	                    } 
+	             }	
+	                
+	                System.out.println("**********************************************************************************************************");
+	                System.out.println("\t\t    BILL \n");
+	                System.out.println("**********************************************************************************************************");
+	     	        System.out.println("ORDER NO IS " + orderno);
+	                System.out.println("**********************************************************************************************************");
+	                System.out.println("ITEM NO      ITEM NAME          ITEM SIZE        ITEM PRICE\n");
+	                for (int j = 0; j < No_of_items; j++) 
+	                {
+	                    Items k=head;
+	                    while(k.next!=null) 
+	                    {
+	                    		if (array[j] == k.number) 
+	                    		{
+	                    			if(array1[j]==1) 
+	                        	{
+	                        		System.out.println(k.number+"\t     " + k.name +"\tSmall" +"\t\t    "+ k.sprice);
+	                        	}
+	                    			else if(array1[j]==2)
+	                        	{
+		                        		System.out.println(k.number+"\t     " + k.name +"\tMedium" +"\t\t    "+ k.mprice);
+	                        	}
+	                    			else if(array1[j]==3)
+	                        	{
+	                        		System.out.println(k.number+"\t     " + k.name +"\tLarge" +"\t\t    "+ k.lprice);	      
+	                        	}
+	                    			else
+	                    				System.out.println(k.number+"\t     " + k.name +"\t1.5 Litre " +"\t\t"+ k.sprice);
+	                    		}
+	                    		
+	                        k=k.next;
+	                    }
+	                    if (array[j] == k.number) {
+	                    	if(array1[j]==1) 
+                        	{
+                        		System.out.println(k.number+"\t     " + k.name +"\tSmall" +"\t\t    "+ k.sprice);
+                        	}
+                        	if(array1[j]==2)
+                        	{
+                        		System.out.println(k.number+"\t     " + k.name +"\tMedium" +"\t\t    "+ k.mprice);
+                        	}
+                        	if(array1[j]==3)
+                        	{
+                        		System.out.println(k.number+"\t     " + k.name +"\tLarge" +"\t\t    "+ k.lprice);
+                        	}
+                    		System.out.println(k.number+"\t     " + k.name +"\t1.5 Litre " +"\t\t    "+ k.sprice);
+	                    }
+	                }
+	                System.out.println("**********************************************************************************************************\n");
+	                System.out.println("NUMBER OF ITEMS " + No_of_items);
+	                System.out.println("==========================================================================================================");
+	                System.out.println("TOTAL BILL IS " + total_price);
+	                System.out.println("==========================================================================================================");
+			        System.out.println("P) Pay BY Card \tC) Cash\nPress : ");
+	                paychoice=sc.next().charAt(0);
+	                switch (paychoice)
+	                {
+	                    case 'P':
+	                    case 'p': 
+	                    {
+	                    	{
+	                    		int attempt=3;
+	                    		boolean check=true;
+	                    			for (int i=0; i<3;i++)
+	                    			{
+	                    				System.out.println("*******************************************************************************************************");
+	                    				System.out.print("\t\tEnter Pin Code : ");
+	                    				int pin=sc.nextInt();
+	                    				if(pin==4321)
+	                    				{
+	                    	                System.out.println("==========================================================================================================");
+	                    						System.out.println("\nCard Is Verified. Payment is Done");
+	                    						check=true;
+	                    						System.out.println("*************************************************************************************************************");
+	                    						System.out.println("YOUR ORDER HAS BEEN SUCCESSFULLY PLACED .PLEASE WAIT 5 MINS TO PICK YOUR ORDER..");
+	                    						orderno++;
+	             	                            System.out.println("\t\t\t\t\t    THANKS FOR ORDERING  ");
+	             	                            System.out.println("\t\t\t\t\t     COME BACK AGAIN \n");
+	                    						break;
+	                    				}
+	                    					else 
+	                    					{
+	                    						--attempt;
+	                    						System.out.println("*************************************************************************************************************");
+	                    						System.out.println("\t\t Wrong Pin ");
+	                    						System.out.println("******************************************************************");
+	                    						System.out.println("\t\t Remaining Attempt are : "+ attempt);
+	                    		                System.out.println("==========================================================================================================");
+	                    						if(attempt==0)
+	                    						{
+	                    							System.out.println("\t\t Attempt Limit Exceeded");	
+	                    						}
+	                    						System.out.println("******************************************************************");
+	                    					}
+	                    				
+	                    			}
+	                    	}
+	                            break;
+	                    }
+	                    case 'C':
+	                    case 'c': 
+	                    {
+	                        int payamount = 0;
+	    	                System.out.println("==========================================================================================================");
+	                        System.out.println("Enter The amount: ");
+	                        payamount = sc.nextInt();
+	                        earn=earn+total_price;
+	                            
+	                            int returnbalance = payamount - total_price;
+	        	                System.out.println("==========================================================================================================");
+	                            System.out.println("RETURNED AMOUNT :" + returnbalance);
+	        	                System.out.println("==========================================================================================================");
+	                            System.out.println("YOUR ORDER HAS BEEN SUCCESSFULLY PLACED .PLEASE WAIT 5 MINS TO PICK YOUR ORDER..");
+	                            orderno++;
+	        	                System.out.println("==========================================================================================================");
+	                            System.out.println("\t\t\t\t     THANKS FOR ORDERING  ");
+	                            System.out.println("\t\t\t\t    COME BACK AGAIN \n");
+	                        }
+	                        break;
+	                    case 'N':
+	                    case 'n':
+	                    {
+	                        System.out.println("\t\t\t\t\t\t    THANKS FOR CHECKING IN  ");
+	                        System.out.println("\t\t\t\t\t\t     COME BACK AGAIN \n");
+	                        break;
+	                    }
+	                    default:{
+	                        System.out.println(" INVALID ENTRY...");
+	                        break;
+	                    }
+	                }
+	            }
+	        }
+	 
+	 }
+
+
+
+	  
+
+

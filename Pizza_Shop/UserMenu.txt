@@ -1,0 +1,185 @@
+import java.util.Scanner;
+
+public class UserMenu {
+	 availablestock item = new availablestock();
+	 CustomList product=new CustomList();
+	 int b3=0;
+	 Order_Queue queue = new Order_Queue();
+		public void first()
+		{
+			if(b3==0) //insert srf 1st time ho, 2nd round me insert auto pr again call na ho
+			{
+				item.insert("Chicken Tikka", 5, 400, 5, 800, 10,1200);
+				item.insert("Chicken Fatija", 5, 500, 5, 900, 10,1400);
+				item.insert("Chicken Mughlai", 5, 550, 5, 950, 10,1300);
+				item.insert("Euro Base      ", 5, 400, 5, 800, 10,1100);
+				item.insert2("Coke         ", 10 , 100);
+				item.insert2("Dew          ", 10 , 100);
+				item.insert2("7UP          ", 10 , 100);
+				item.insert2("Sprite      ", 10 , 100);
+				item.insert2("Pepsi       ", 10 , 100);
+				product.insert3("Chicken Tikka","Small",2 ,"Chicken Fatija","Small",2,"Coke",1,1500);
+				product.insert3("Chicken Mughlai","Small",2 ,"Euro Base      ","Large",2,"Coke",1,1600);
+				product.insert3("Chicken Tikka","Medium",1 ,"Chicken Fatija","Large",2,"Coke",2,2500);
+				product.insert3("Chicken Mughlai","Medium",2 ,"Euro Base      ","Large",1,"Coke",1,3000);
+	++b3;
+			}
+		}
+	public void display1(int a2)
+	{
+		
+		Scanner d=new Scanner(System.in);
+		int a1=a2;
+		if (a1==1)
+		{
+				boolean again= true;
+				do
+				{
+					System.out.println("**************************************************************************************************************");
+					System.out.println("\t\t Press 1: Updating the Stock");
+					System.out.println("\t\t Press 2: Checking the Stock");
+					System.out.println("\t\t Press 3: Adding New Item ");
+					System.out.println("\t\t Press 4: Deleting Item ");
+					System.out.println("\t\t Press 5: Total Sales");
+					System.out.println("\t\t Press 6: Exiting");
+					System.out.print("\t\t Press : ");
+					int e=d.nextInt();
+					System.out.println("************************************************************************************************************");
+					switch(e)
+					{
+						case 1: 
+							System.out.println("****************************Custom**************************************");
+							item.show();
+							System.out.println("\n");
+							System.out.println("****************************Deals**************************************");
+							product.show1();
+							System.out.println("\t\t Press 1 : Pizza Stock  \n\t\t Press 2 : Cold Drinks  \n\t\t Press 3 : Custom Deals");
+							System.out.print("\n\t\t Press: ");
+							int m=d.nextInt();
+							if(m==1)
+							{
+								System.out.print("\t\t Enter The Item Number You want to Update : ");
+								int a=d.nextInt();
+								System.out.print("\t\t Enter Quantity of Small : ");
+								int b=d.nextInt();
+								System.out.print("\t\t Enter Quantity of Medium : ");
+								int c=d.nextInt();
+								System.out.print("\t\t Enter Quantity of Large : ");
+								int e1=d.nextInt();
+								item.update(a,b,c,e1);
+							}
+							else if (m==3)
+							{
+								System.out.print("\t\t Enter The Item Number You want to Update : ");
+								int a=d.nextInt();
+								System.out.print("\t\t Enter Quantity : ");
+								int b=d.nextInt();
+								product.update(a,b);
+							}
+							else
+							{
+								System.out.print("\t\t Enter The Item Number You want to Update : ");
+								int a=d.nextInt();
+								System.out.print("\t\t Enter Quantity : ");
+								int b=d.nextInt();
+								item.update2(a,b);
+							}
+							break;
+						case 2:
+							item.show1();
+							product.show1();
+							break;
+						case 3:
+							System.out.print("\t\t Enter Name of Pizza : ");
+							String f= d.next()+ d.nextLine();
+							System.out.print("\t\t Enter Quantity of Small : ");
+							int g= d.nextInt();
+							System.out.print("\t\t Enter Price of Small Size : ");
+							int h= d.nextInt();
+							System.out.print("\t\t Enter Quantity of Medium : ");
+							int i= d.nextInt();
+							System.out.print("\t\t Enter Price of Medium size : ");
+							int j= d.nextInt();
+							System.out.print("\t\t Enter Quantity of Large : ");
+							int k= d.nextInt();
+							System.out.print("\t\t Enter Price of Large size  : ");
+							int l= d.nextInt();
+							item.insert(f,g,h,i,j,k,l);
+							break;
+						case 4:
+							System.out.println("\n");
+							System.out.println("\t\t Press 1 : Custom Deletion  \n\t\t Press 2 : Deal Deletion ");
+							System.out.print("\n\t\t Press: ");
+							int m1=d.nextInt();
+							if(m1==1)
+							{
+								System.out.println("****************************Custom**************************************");
+								item.show1();
+								System.out.println("************************************************************************");
+								System.out.println("\t\t Enter Item Number You Want to Delete ");
+								int e1=d.nextInt();
+								item.Delete(e1);
+							}
+							else
+							{
+								System.out.println("****************************Deals**************************************");
+								product.show1();
+								System.out.println("\t\t Enter Deal Number You want to Delete : ");
+								int b=d.nextInt();
+								product.Delete(b);
+							}					
+							break;
+						case 5:
+							System.out.println("\t\t\t\t    TOTAL EARNING  \n" );
+	                        int Total_Earning = product.ret() + item.ret();
+	                        System.out.println(  "TOTAL EARNING IS : " + Total_Earning );
+	                        break;
+						case 6:
+							again=false;
+							break;
+					}
+				}while(again);
+		}
+		else
+		{
+			boolean again= true;
+			do
+			{
+				System.out.println("************************************************************************************************************");
+				System.out.println("\t\t Press 1: For Custom Order");
+				System.out.println("\t\t Press 2: To check deals");
+				System.out.println("\t\t Press 3: To check Orders In Process ");
+				System.out.println("\t\t Press 4: To Pick Up The Order ");
+				System.out.println("\t\t Press 5: Manager Access");
+				System.out.print("\t\t Press : ");
+				int i=d.nextInt();
+				System.out.println("************************************************************************************************************");
+				switch(i)
+				{
+					case 1:
+						System.out.println("****************************Custom**************************************");
+						item.CS_Order();
+						queue.Enqueue(item.orderret());
+						break;
+					case 2:
+						System.out.println("****************************************************Deals**************************************************************");
+						product.show1();
+						product.Deal_Order();
+						queue.Enqueue(product.orderret());
+						break;
+					case 3:
+						System.out.println("\t\t\t     ORDERS IN PROCESS  \n" );
+                        queue.show();
+						break;
+					case 4:
+						 queue.Dequeue();
+						 break;
+					case 5:
+						again=false;
+						break;
+				}
+		}
+			while (again);
+		}
+	}
+}

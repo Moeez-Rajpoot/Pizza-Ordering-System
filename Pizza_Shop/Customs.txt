@@ -1,0 +1,14 @@
+
+public class Custom {
+	String n1;
+	String Size1;
+	int quantity1;
+	String n2;
+	String Size2;
+	int quantity2;
+	String n3;
+	int quantity3;
+	int price;
+	int number;
+	Custom next;
+}
